@@ -2,6 +2,9 @@
 # Therm & Stat
 # 2/10/2015
 
+from copy import deepcopy as dc
+
+hist = []
 def printos(arrayO):
     print '[',
     for i in range(len(arrayO)):
@@ -12,6 +15,13 @@ def printos(arrayO):
         if i < len(arrayO) - 1:
             print '|',
     print ']'
+    hist.append(dc(arrayO))
+
+def inhist(o):
+    for l in range(len(hist)):
+        if hist[l] == o:
+            return 1
+    return 0
 
 def energytree(n, o):
     # n is energy, o is oscillators
@@ -21,7 +31,8 @@ def energytree(n, o):
     if n == 1:
         for i in range(len(o)):
             o[i] += 1
-            printos(o)
+            if inhist(o) == 0:
+                printos(o)
             o[i] -= 1
     else:
         for j in range(len(o)):
@@ -37,4 +48,4 @@ def runenergy(energy, size):
 
 # to run with arbitrary energy and oscillators:
 # replace 1 with the energy and 3 with the number of oscillators you want
-runenergy(1, 3) 
+runenergy(2, 4) 
